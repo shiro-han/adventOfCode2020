@@ -8,6 +8,8 @@ using namespace std;
 
 const string filename = "input.txt";
 
+const 
+
 int processFile(fstream &, vector<string> &);
 string formatRaw_pp(string);
 void populatePassports(vector <struct pp> &, vector<string> &);
@@ -92,6 +94,8 @@ void constructPP(string raw_pp){
         int pos = line.find(":");
         string field = line.substr(0, pos);
         string info = line.substr(pos+1);
+
+        if (field == "")
     }
 
     cout << endl;
