@@ -189,6 +189,7 @@ bool hgtValid(string input){
     }
 }
 
+//use regex
 // bool hclValid(string input){
 //     string hclMod = input.substr(1);
 //     if (input.at(0) != '#'){
