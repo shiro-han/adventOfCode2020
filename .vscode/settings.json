@@ -18,6 +18,8 @@
         "unordered_map": "cpp",
         "utility": "cpp",
         "locale": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "set": "cpp",
+        "algorithm": "cpp"
     }
 }

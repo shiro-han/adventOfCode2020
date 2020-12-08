@@ -42,7 +42,7 @@ int findRow(string rowIn){
 int findColumn(string);
 int findColumn(string columnIn){
     int length = columnIn.length();
-    double high_limit = 127;
+    double high_limit = 7;
     double low_limit = 0;
 
     for (int i = 0; i < length ; i++){
@@ -103,11 +103,40 @@ int highestID(vector <struct bp> &boarding_passes){
     return highestID;
 }
 
+bool compareIds(bp, bp);
+bool compareIds(bp b1, bp b2){
+    return (b1.id < b2.id);
+}
+
+int myId(vector <struct bp> &);
+int myId(vector <struct bp> &boarding_passes){
+    sort(boarding_passes.begin(), boarding_passes.end(), compareIds);
+    int length = boarding_passes.size();
+
+    // for (int i = 0; i < length; i++){
+    //     cout << boarding_passes.at(i).id << endl;
+    // }
+
+    for (int i = 1; i < length; i++){
+        int prevID = boarding_passes.at(i-1).id;
+        int currID = boarding_passes.at(i).id;
+        int nextID = boarding_passes.at(i+1).id;
+
+        cout << "prevID: " << prevID << endl;
+        cout << "currID: " << currID << endl;
+        cout << "nextID: " << nextID << endl;
+        cout << endl;
+
+        if (nextID - prevID != 2){return currID+1;};
+    }
+
+    return -1;
+}
+
 int main(){
     fstream file;
     vector<bp> boarding_passes;
     processFile(file, boarding_passes);
-
-    cout << highestID(boarding_passes);
-
+    int answer = myId(boarding_passes);
+    cout << "\nYour ID: " << answer << endl;
 }
