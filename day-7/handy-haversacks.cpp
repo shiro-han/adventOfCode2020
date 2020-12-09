@@ -83,22 +83,11 @@ void openFile(fstream &file, vector <struct bag> &bags){
 }
 
 bool checkBags(vector <struct bag> &, string);
-bool checkBags(vector <struct bag> &bags, string input){
+bool checkBags(vector <struct bag> &bags, string inAdj){
     bool output = false;
     bag foundBag;
-    string inAdj;
 
-    stringstream ss(input);
-    string word;
-    bool firstWord = true;
-    ss << input;
-    while (ss >> word){
-        if (!firstWord){
-            inAdj += word + " ";
-        }
-        firstWord = false;
-    }
-    inAdj.erase(inAdj.length()-1);
+    cout << inAdj << endl;
     
     //find the bag in bags where bag.adj = parameter adj
     auto adjMatch = [inAdj](const bag& b){return (b.adj == inAdj);};
@@ -128,16 +117,19 @@ bool canContainShinyGold(vector <struct bag> &bags, string input){
 
     stringstream ss(input);
     string ruleStr, word;
+    int count = 0;
     ss << input;
     while(ss >> word){
         if (word.back() == ',' || word.back() == '.'){
+            ruleStr.erase(ruleStr.length()-1);
             if (checkBags(bags, ruleStr)){return true;};
+            count = -1;
             ruleStr = "";
-        } else {
+        } else if (count > 0){
             ruleStr += word + " ";
         }
+        count++;
     }
-    // cout << endl;
 
     return false;
 };
@@ -160,6 +152,6 @@ int main(){
     fstream file;
     vector<bag> bags;
     openFile(file, bags);
-    cout << answer1(file, bags);
-    // cout << bags.at(589).rules.at(0).adj << endl;
+    cout << answer1(file, bags) << endl;
+    // cout << bags.at(0).rules.at(0).adj;
 }
