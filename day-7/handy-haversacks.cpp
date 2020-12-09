@@ -89,6 +89,7 @@ bool checkBags(vector <struct bag> &bags, string inAdj){
 
     // cout << "Input:" << inAdj << endl;
 
+    if (inAdj == keyword0){return true;};
     if (inAdj == keyword2){return false;};
     
     //find the bag in bags where bag.adj = parameter adj
@@ -108,7 +109,9 @@ bool checkBags(vector <struct bag> &bags, string inAdj){
             if (currAdj == keyword0){
                 return true;
             } else {
-                output = (output || checkBags(bags, currAdj));
+                // cout << "RECURSION" << endl;
+                bool test = checkBags(bags, currAdj);
+                output = (output || test);
             }
         }
     }
