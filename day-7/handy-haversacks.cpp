@@ -164,10 +164,28 @@ int answer1(fstream &file, vector <struct bag> &bags){
     return count;
 }
 
+int answer2(vector<bag> bags, string inAdj = keyword0){
+    int count = 0;
+    auto adjMatch = [inAdj](const bag &b){return (b.adj == inAdj);};
+    auto p = find_if(bags.begin(), bags.end(), adjMatch);
+    bag foundBag = *p;
+
+    if (foundBag.rules.at(0).num == 0){
+        return 0;
+    }
+
+    for (int i = 0; i < foundBag.rules.size(); i++){
+        count += foundBag.rules.at(i).num;
+        count += foundBag.rules.at(i).num * answer2(bags, foundBag.rules.at(i).adj);
+    }
+    return count;
+}
+
 int main(){
     fstream file;
     vector<bag> bags;
     openFile(file, bags);
-    cout << answer1(file, bags);
-    // cout << bags.at(0).rules.at(0).adj;
+    // cout << bags.at(2).rules.at(0).num;
+    // cout << answer1(file, bags);
+    cout << answer2(bags);
 }
